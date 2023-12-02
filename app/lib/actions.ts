@@ -1,5 +1,7 @@
 'use server';
 import { sql } from "@vercel/postgres";
+import { AuthError } from "next-auth";
+import { signIn } from "@/auth";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
@@ -111,5 +113,19 @@ export async function deleteInvoice(id: string) {
     return { message: 'Deleted Invoice.' };
   } catch (error) {
     return { message: 'Database Error: Failed to Delete Invoice.' };
+  }
+}
+
+export async function authenticate(
+  prevState: string | undefined,
+  formData: FormData,
+) {
+  try {
+    await signIn('credentials', formData);
+  } catch (error) {
+    if (error instanceof AuthError) {
+      return error.type === 'CredentialsSignin' ? 'Invalid credentials.' : 'Something went wrong.'
+    }
+    throw error;
   }
 }
