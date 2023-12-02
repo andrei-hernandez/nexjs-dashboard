@@ -180,7 +180,7 @@ export async function fetchCustomers() {
     const data = await sql<CustomerField>`
       SELECT
         id,
-        name
+        name,
       FROM customers
       ORDER BY name ASC
     `;
@@ -193,7 +193,7 @@ export async function fetchCustomers() {
   }
 }
 
-export async function fetchFilteredCustomers(query: string) {
+export async function fetchFilteredCustomers(query: string) {  
   noStore();
   try {
     const data = await sql<CustomersTable>`

@@ -4,6 +4,11 @@ import LatestInvoices from "@/app/ui/dashboard/latest-invoices";
 import CardWrapper from "@/app/ui/dashboard/cards";
 import { CardsSkeleton, LatestInvoicesSkeleton, RevenueChartSkeleton } from "@/app/ui/skeletons";
 import { Suspense } from "react";
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Dashboard',
+};
 
 export default async function Page() {
   return (
